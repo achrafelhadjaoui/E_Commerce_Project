@@ -1,0 +1,37 @@
+# ========================
+# FRONTEND
+# ========================
+
+# Dependencies
+frontend/node_modules/
+frontend/.pnp/
+frontend/.pnp.js
+
+# Build output
+frontend/build/
+
+# Testing
+frontend/coverage/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Misc
+frontend/.DS_Store
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ========================
+# BACKEND
+# ========================
+
+# Dependencies
+backend/node_modules/
+
+# Environment files
+backend/.env
