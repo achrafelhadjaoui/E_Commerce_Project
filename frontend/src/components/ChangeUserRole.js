@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ROLE from "../common/role";
 import {IoMdClose} from 'react-icons/io'
+import summaryApi from "../common";
 
 const ChangeUserRole = ({
   name,
@@ -17,11 +18,23 @@ const ChangeUserRole = ({
   }
 
   const updateUserRole = async () => {
+    const fetchResponse = await fetch(summaryApi.updateUser.url, {
+      method: summaryApi.updateUser.method,
+      credentials: "include",
+      headers : {
+        "content-type" : "application/json"
+      },
+      body: JSON.stringify({
+        role : userRole
+      })
+    })
 
+    const dataResponse = await fetchResponse.json()
+    console.log("Role updated" ,dataResponse)
   }
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 w-full h-full z-10 flex justify-between items-center">
+    <div className="fixed top-0 bottom-0 left-0 right-0 w-full h-full z-10 flex justify-between items-center bg-slate-200 bg-opacity-50">
       <div className="mx-auto bg-white shadow-md p-4 w-full max-w-sm">
 
         <button className="block ml-auto " onClick={onClose}>

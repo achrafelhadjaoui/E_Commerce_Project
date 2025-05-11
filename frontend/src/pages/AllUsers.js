@@ -7,6 +7,13 @@ import ChangeUserRole from '../components/ChangeUserRole'
 
 const AllUsers = () => {
   const [allUsers, setAllUsers] = useState([])
+  const [openUpdateRole, setOpenUpdateRole] = useState(false)
+  const [updateUserDetails, setUpdateUserDetails] = useState({
+    email: "",
+    name: "",
+    role: "",
+
+  })
 
   const fetchAllUsers = async () => {
     console.log("itt starts here", summaryApi.allUsers.url)
@@ -58,8 +65,8 @@ const AllUsers = () => {
                   <td>{el.role}</td>
                   <td>{moment(el.createdAt).format('LL')}</td>
                   <td>
-                    <button className='bg-green-100 p-2 rounded-full cursor-pointer hover:bg-green-500 hover:text-white'>
-                      <MdModeEdit/>
+                    <button className='bg-green-100 p-2 rounded-full cursor-pointer hover:bg-green-500 hover:text-white' onClick={()=> setOpenUpdateRole(true)}>
+                      <MdModeEdit />
                     </button>
                   </td>
                 </tr>
@@ -69,7 +76,17 @@ const AllUsers = () => {
         </tbody>
       </table>
 
-      <ChangeUserRole/>
+      {
+        openUpdateRole && (
+          <ChangeUserRole onClose={()=>setOpenUpdateRole(false)} 
+            name={updateUserDetails.name}
+            email={updateUserDetails.email}
+            role={updateUserDetails.role}
+
+          />
+        )
+      }
+
     </div>
   )
 }

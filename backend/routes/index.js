@@ -16,6 +16,6 @@ router.get('/userLogout', userLogout)
 
 //admin panel
 router.get("/all-users", authToken , allUsers)
-router.post("update-user", authToken, updateUser)
+router.post("/update-user", authToken, updateUser)
 
 module.exports = router;

@@ -45,7 +45,7 @@ app.use(cors({
 
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());  // Add cookie-parser
-app.use("/api", router)
+app.use("/api", router);
 // Test route to check if the app works
 
 
