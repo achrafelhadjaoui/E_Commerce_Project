@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import ROLE from "../common/role";
 import {IoMdClose} from 'react-icons/io'
 import summaryApi from "../common";
+import { toast } from "react-toastify";
 
 const ChangeUserRole = ({
   name,
   email,
+  userId,
   role,
-  onClose
+  onClose,
+  callFunc
 }) => {
 
-  const [userRole, setUserRole] = useState("")
+  const [userRole, setUserRole] = useState(role || "");
 
   const handleOnchangeSelect = (e) => {
     setUserRole(e.target.value)
@@ -25,12 +28,17 @@ const ChangeUserRole = ({
         "content-type" : "application/json"
       },
       body: JSON.stringify({
+        userId: userId,
         role : userRole
       })
     })
 
     const dataResponse = await fetchResponse.json()
-    console.log("Role updated" ,dataResponse)
+    if(dataResponse.success){
+      toast.success(dataResponse.message)
+      onClose()
+      callFunc()
+    }
   }
 
   return (
@@ -50,6 +58,7 @@ const ChangeUserRole = ({
           <p>Role :</p>
           <select className="border px-4 py-1 " value={userRole} onChange={handleOnchangeSelect}>
             {Object.values(ROLE).map((el) => {
+              console.log("this is el", el)
               return (
                 <option value={el} key={el}>
                   {el}

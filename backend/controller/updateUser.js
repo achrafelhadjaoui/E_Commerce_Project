@@ -4,7 +4,7 @@ async function updateUser(req, res) {
     try {
         const sessionUser = req.user.id
 
-        const {userId, email, name, role} = req.body.role
+        const {userId, email, name, role} = req.body
         
         const payload = {
             ...(email && { email : email}),
@@ -13,10 +13,17 @@ async function updateUser(req, res) {
         }
 
         const user = await userModel.findById(sessionUser)
+        console.log("this is user1" ,user)
+        const user2 = await userModel.findById(userId)
 
-        console.log("this is session user" ,user)
+        console.log("this is user2" ,user2)
+        
 
         const updateUser = await userModel.findByIdAndUpdate(userId, payload)
+
+        console.log("this is the payload" ,payload)
+        console.log("this is the req.body" ,req.body)
+
 
         res.json({
             message: "User Updated",
