@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import ROLE from "../common/role";
 
 const AdminPanel = () => {
   const user = useSelector((state) => state?.users?.user);
+  const navigate = useNavigate()
+
+  /** you can also check only the existong of the userwithout including the role */
+  useEffect(()=>{
+    if(user?.role !== ROLE.ADMIN){ 
+      navigate("/")
+    }
+  },[user])
+
   return (
     <div className="min-h-[calc(100vh-120px)] md:flex hidden">
       <aside className="bg-white min-h-full w-full max-w-60 customShadow">
