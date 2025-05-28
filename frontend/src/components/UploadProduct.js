@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { CgClose } from "react-icons/cg";
 import productCategory from "../helpers/productCategory";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import uploadImage from "../helpers/uploadImage";
+import DisplayImage from "./DisplayImage";
+import {MdDelete} from 'react-icons/md'
 
 const UploadProduct = ({ onClose }) => {
   const [data, setData] = useState({
@@ -14,14 +17,23 @@ const UploadProduct = ({ onClose }) => {
     selling: "",
   });
 
-  const [uploadProductImageInput, setUploadProductImageInput] = useState("")
+  const [fullScreenImage, setFullScreenImage] = useState("");
+  const [openfullScreenImage, setOpenFullScreenImage] = useState(false);
 
   const handleOnChange = (e) => {};
 
-  const handleUplaodProduct = (e) => {
-    const file = e.target.files[0]
-    setUploadProductImageInput(file.name)
-  }
+  const handleUplaodProduct = async (e) => {
+    const file = e.target.files[0];
+
+    const uploadImageCloudinary = await uploadImage(file);
+
+    setData((preve) => {
+      return {
+        ...preve,
+        productImage: [...preve.productImage, uploadImageCloudinary.url],
+      };
+    });
+  };
 
   return (
     <div className="fixed w-full h-full bg-slate-200 bg-opacity-35 top-0 left-0 right-0 bottom-0 flex justify-center items-center">
@@ -85,20 +97,59 @@ const UploadProduct = ({ onClose }) => {
                   <FaCloudUploadAlt />
                 </span>
                 <p className="text-sm">Upload Product Image</p>
-                <input type="file" id="uploadImageInput" className="hidden" onChange={handleUplaodProduct}/>
+                <input
+                  type="file"
+                  id="uploadImageInput"
+                  className="hidden"
+                  onChange={handleUplaodProduct}
+                />
               </div>
             </div>
           </label>
+
           <div>
-            <img
-              src=""
-              width={80}
-              height={80}
-              className="bg-slate-100 border"
-            />
+            {data?.productImage[0] ? (
+              <div className="flex items-center gap-2">
+                {data.productImage.map((el) => {
+                  return (
+                    <div className="relative">
+                      <img
+                        src={el}
+                        alt={el}
+                        className="w-20 h-20 object-cover object-center rounded border cursor-pointer" // className="bg-slate-100 object-cover border  cursor-pointer"
+                        onClick={() => {
+                          setOpenFullScreenImage(true);
+                          setFullScreenImage(el);
+                        }}
+                      />
+
+                      <div className=" ">
+                        <MdDelete/>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-red-600 text-xs">
+                *Please upload product image
+              </p>
+            )}
           </div>
+
+          <button className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700 ">
+            Upload Product
+          </button>
         </form>
       </div>
+
+      {/**Display Image Full Screen */}
+      {openfullScreenImage && (
+        <DisplayImage
+          onClose={() => setOpenFullScreenImage(false)}
+          imgUrl={fullScreenImage}
+        />
+      )}
     </div>
   );
 };
