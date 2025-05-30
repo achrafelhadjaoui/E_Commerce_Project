@@ -5,6 +5,8 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import uploadImage from "../helpers/uploadImage";
 import DisplayImage from "./DisplayImage";
 import { MdDelete } from "react-icons/md";
+import summaryApi from "../common";
+import {toast} from 'react-toastify'
 
 const UploadProduct = ({ onClose }) => {
   const [data, setData] = useState({
@@ -58,15 +60,28 @@ const UploadProduct = ({ onClose }) => {
     });
   };
 
+  /**upload product */
+  const handleSubmitUplaodProduct = async (e) => {
+    e.preventDefault();
 
-  {/**upload product */}
+    const response = await fetch(summaryApi.uploadProduct.url, {
+      method: summaryApi.uploadProduct.method,
+      credentials: "include",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-  const handleSubmitUplaodProduct = (e) => {
-    e.preventDefault()
+    const responseData = await response.json()
 
-    console.log("this is the data", data)
-  }
+    if(responseData.success){
+      toast.success(responseData?.message)
+      onClose()
+    }
 
+    if(responseData.error){
+      toast.error(responseData?.message)
+    }
+  };
 
   return (
     <div className="fixed w-full h-full bg-slate-200 bg-opacity-35 top-0 left-0 right-0 bottom-0 flex justify-center items-center">
@@ -81,7 +96,10 @@ const UploadProduct = ({ onClose }) => {
           </div>
         </div>
 
-        <form className="grid p-4 gap-2 overflow-scroll h-full pb-5" onSubmit={handleSubmitUplaodProduct}>
+        <form
+          className="grid p-4 gap-2 overflow-scroll h-full pb-5"
+          onSubmit={handleSubmitUplaodProduct}
+        >
           <label htmlFor="productName">product Name :</label>
           <input
             type="text"
@@ -91,6 +109,7 @@ const UploadProduct = ({ onClose }) => {
             value={data.productName}
             onChange={handleOnChange}
             className="p-2 bg-slate-100 border rounded "
+            required
           />
 
           <label htmlFor="brandName" className="mt-3">
@@ -104,6 +123,7 @@ const UploadProduct = ({ onClose }) => {
             value={data.brandName}
             onChange={handleOnChange}
             className="p-2 bg-slate-100 border rounded "
+            required
           />
 
           <label htmlFor="category" className="mt-3">
@@ -114,6 +134,7 @@ const UploadProduct = ({ onClose }) => {
             name="category"
             onChange={handleOnChange}
             className="p-2 bg-slate-100 border rounded"
+            required
           >
             <option value="" disabled hidden>
               Select Category
@@ -140,6 +161,7 @@ const UploadProduct = ({ onClose }) => {
                   id="uploadImageInput"
                   className="hidden"
                   onChange={handleUplaodProduct}
+                  required
                 />
               </div>
             </div>
@@ -189,6 +211,7 @@ const UploadProduct = ({ onClose }) => {
             name="price"
             onChange={handleOnChange}
             className="p-2 bg-slate-100 border rounded"
+            required
           />
 
           <label htmlFor="selling" className="mt-3">
@@ -202,6 +225,7 @@ const UploadProduct = ({ onClose }) => {
             name="selling"
             onChange={handleOnChange}
             className="p-2 bg-slate-100 border rounded"
+            required
           />
 
           <label htmlFor="description" className="mt-3">
@@ -213,6 +237,7 @@ const UploadProduct = ({ onClose }) => {
             name="description"
             value={data.description}
             onChange={handleOnChange}
+            required
           ></textarea>
 
           <button className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700 ">
