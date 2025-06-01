@@ -1,34 +1,51 @@
 import React, { useState } from "react";
-import {MdModeEditOutline} from "react-icons/md"
+import { MdModeEditOutline } from "react-icons/md";
 import AdminEditProduct from "./AdminEditProduct";
+import displayCurrency from "../helpers/displayCurrency";
 
-const AdminProductCard = ({data}) => {
-
-  const [editProduct, setEditProduct] = useState(false)
+const AdminProductCard = ({ data, fetchData }) => {
+  const [editProduct, setEditProduct] = useState(false);
 
   return (
     <div className="bg-white p-4 rounded">
-      <div className="w-24 h-24">
-      <img src={data?.productImage[0]} alt={data?.productName} className="w-full h-full object-cover" />
+      <div className="w-36">
+        <div className="w-full h-32 bg-slate-100 p-2 rounded">
+          <img
+            src={data?.productImage[0]}
+            alt={data?.productName}
+            className="w-fit h-full mx-auto"
+          />
+        </div>
+        <h1 className="pt-2 text-ellipsis truncate">{data?.productName}</h1>
+
+        <div>
+          <p className="font-semibold">
+            {
+              displayCurrency(data.selling)
+            }
+            </p>
+
+          <div
+            className="w-fit ml-auto bg-green-100 hover:bg-green-600 p-2 rounded-full hover:text-white cursor-pointer"
+            onClick={() => setEditProduct(true)}
+          >
+            <MdModeEditOutline />
+          </div>
+        </div>
       </div>
-      <h1>{data?.productName}</h1>
 
-      <div className="w-fit ml-auto bg-green-100 hover:bg-green-600 p-2 rounded-full hover:text-white cursor-pointer" onClick={()=>setEditProduct(true)}>
-        <MdModeEditOutline />
-      </div>
-
-
-      {
-        editProduct && (<AdminEditProduct productData={data} onClose={()=>setEditProduct(false)}/>)
-      }
-      
+      {editProduct && (
+        <AdminEditProduct
+          productData={data}
+          fetchData={fetchData}
+          onClose={() => setEditProduct(false)}
+        />
+      )}
     </div>
   );
 };
 
 export default AdminProductCard;
-
-
 
 // import React from "react";
 // import { MdModeEditOutline } from "react-icons/md";

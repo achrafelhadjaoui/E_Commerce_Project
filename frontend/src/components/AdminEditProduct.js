@@ -8,9 +8,10 @@ import { MdDelete } from "react-icons/md";
 import summaryApi from "../common";
 import { toast } from "react-toastify";
 
-const AdminEditProduct = ({ onClose, productData }) => {
+const AdminEditProduct = ({ onClose, productData, fetchData }) => {
     
   const [data, setData] = useState({
+    ...productData,
     productName: productData?.productName,
     brandName: productData?.brandName,
     category: productData?.category,
@@ -78,6 +79,7 @@ const AdminEditProduct = ({ onClose, productData }) => {
     if (responseData.success) {
       toast.success(responseData?.message);
       onClose();
+      fetchData()
     }
 
     if (responseData.error) {
@@ -247,7 +249,7 @@ const AdminEditProduct = ({ onClose, productData }) => {
           ></textarea>
 
           <button className="px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700 ">
-            Upload Product
+            Update Product
           </button>
         </form>
       </div>
