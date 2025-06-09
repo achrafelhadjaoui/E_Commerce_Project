@@ -41,18 +41,17 @@ const BannerProduct = () => {
 
   useEffect(()=>{
     const interval = setInterval(()=>{
-      if(currentImage < 3){
+      if(desktopImages.length - 1 > currentImage){
         nextImage()
+
       }else{
-        console.log("the set of currentImage", currentImage)
         setCurrentImage(0)
-        console.log("the set of currentImage after", currentImage)
 
       }
     },5000)
 
     return ()=>clearInterval(interval)
-  }, [])
+  }, [currentImage])
 
   return (
     <div className="container mx-auto px-4 rounded">
