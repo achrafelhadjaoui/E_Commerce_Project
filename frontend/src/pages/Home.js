@@ -8,7 +8,7 @@ const Home = () => {
     <div className=''>
         <CategoryList/>
         <BannerProduct/>
-        <HorizontalCardProduct/>
+        <HorizontalCardProduct category={"airpodes"} heading={"Top's Airpodes"}/>
     </div>
   )
 }

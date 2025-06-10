@@ -28,7 +28,7 @@ router.post("/upload-product", authToken, UploadProductController)
 router.get("/get-product", getProductController)
 router.post("/update-product", authToken , updateProductController)
 router.get("/get-categoryProduct", getCategoryProductController)
-router.get("/category-product", getCategoryWiseProduc)
+router.post("/category-product", getCategoryWiseProduc)
 
 
 module.exports = router;

@@ -8,7 +8,7 @@ const getCategoryWiseProduc = async(req, res)=>{
         res.json({
             message: "poduct",
             data: product,
-            success: ture,
+            success: true,
             error: false
         })
 
