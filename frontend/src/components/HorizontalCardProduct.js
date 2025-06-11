@@ -24,15 +24,23 @@ const HorizontalCardProduct = ({ category, heading }) => {
     fetchData();
   }, []);
 
+  const scrollRight = () =>{
+    scrollElement.current.scrollLeft += 300
+  }
+
+  const scrollLeft = () =>{
+    scrollElement.current.scrollLeft -= 300
+  }
+
   return (
     <div className="container mx-auto px-4 my-6 relative">
       <h2 className="text-2xl font-semibold py-4">{heading}</h2>
 
-      <div className="flex items-center gap-4 md:gap-6 overflow-scroll scrollbar-none" ref={scrollElement}>
-        <button className="bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block">
+      <div className="flex items-center gap-4 md:gap-6 overflow-scroll scrollbar-none transition-all" ref={scrollElement}>
+        <button className="bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block" onClick={scrollLeft}>
           <FaAngleLeft />
         </button>
-        <button className="bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block">
+        <button className="bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block" onClick={scrollRight}>
           <FaAngleRight />
         </button>
         {data.map((product, index) => {
@@ -41,11 +49,11 @@ const HorizontalCardProduct = ({ category, heading }) => {
               <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] ">
                 <img
                   src={product?.productImage}
-                  className="object-scale-down h-full hover:scale-110 transition-all"
+                  className="object-scale-down h-full  hover:scale-110 transition-all"
                 />
               </div>
 
-              <div className="p-4 border border-red-600 w-full overflow-hidden grid">
+              <div className="p-4  w-full overflow-hidden grid">
                 <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1">
                   {product?.productName}
                 </h2>
