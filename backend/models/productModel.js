@@ -8,7 +8,7 @@ const productSchema = mongoose.Schema(
     productImage: [],
     description: String,
     price: Number,
-    selling: Number,
+    sellingPrice: Number,
   },
   { timestamps: true }
 );

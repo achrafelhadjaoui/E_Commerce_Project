@@ -1,87 +1,48 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import { MdModeEditOutline } from "react-icons/md";
-import AdminEditProduct from "./AdminEditProduct";
-import displayCurrency from "../helpers/displayCurrency";
+import AdminEditProduct from './AdminEditProduct';
+import displayINRCurrency from '../helpers/displayCurrency';
 
-const AdminProductCard = ({ data, fetchData }) => {
-  const [editProduct, setEditProduct] = useState(false);
+const AdminProductCard = ({
+    data,
+    fetchData
+}) => {
+    const [editProduct,setEditProduct] = useState(false)
 
   return (
-    <div className="bg-white p-4 rounded">
-      <div className="w-36">
-        <div className="w-full h-32 bg-slate-100 p-2 rounded">
-          <img
-            src={data?.productImage[0]}
-            alt={data?.productName}
-            className="w-fit h-full mx-auto"
-          />
-        </div>
-        <h1 className="pt-2 text-ellipsis truncate">{data?.productName}</h1>
+    <div className='bg-white p-4 rounded '>
+       <div className='w-40'>
+            <div className='w-32 h-32 flex justify-center items-center'>
+              <img src={data?.productImage[0]}  className='mx-auto object-fill h-full'/>   
+            </div> 
+            <h1 className='text-ellipsis line-clamp-2'>{data.productName}</h1>
 
-        <div>
-          <p className="font-semibold">
-            {
-              displayCurrency(data.selling)
-            }
-            </p>
+            <div>
 
-          <div
-            className="w-fit ml-auto bg-green-100 hover:bg-green-600 p-2 rounded-full hover:text-white cursor-pointer"
-            onClick={() => setEditProduct(true)}
-          >
-            <MdModeEditOutline />
-          </div>
-        </div>
-      </div>
+                <p className='font-semibold'>
+                  {
+                    displayINRCurrency(data.sellingPrice)
+                  }
+        
+                </p>
 
-      {editProduct && (
-        <AdminEditProduct
-          productData={data}
-          fetchData={fetchData}
-          onClose={() => setEditProduct(false)}
-        />
-      )}
+                <div className='w-fit ml-auto p-2 bg-green-100 hover:bg-green-600 rounded-full hover:text-white cursor-pointer' onClick={()=>setEditProduct(true)}>
+                    <MdModeEditOutline/>
+                </div>
+
+            </div>
+
+          
+       </div>
+        
+        {
+          editProduct && (
+            <AdminEditProduct productData={data} onClose={()=>setEditProduct(false)} fetchdata={fetchData}/>
+          )
+        }
+    
     </div>
-  );
-};
+  )
+}
 
-export default AdminProductCard;
-
-// import React from "react";
-// import { MdModeEditOutline } from "react-icons/md";
-
-// const AdminProductCard = ({ data, onEdit }) => {
-//   return (
-//     <div className="bg-white shadow-sm hover:shadow-md transition-shadow duration-200 rounded-xl p-4 flex gap-4 items-start relative">
-//       {/* Product Image */}
-//       <div className="w-24 h-24 flex-shrink-0 rounded-lg  bg-gray-100">
-//         <img
-//           src={data?.productImage?.[0]}
-//           alt={data?.productName}
-//           className="w-full h-full object-cover"
-//         />
-//       </div>
-
-//       {/* Product Info */}
-//       <div className="flex-1 space-y-2">
-//         <h2 className="text-lg font-semibold text-gray-800">
-//           {data?.productName}
-//         </h2>
-//         <p className="text-sm text-gray-500">{data?.category}</p>
-//         <p className="text-base font-medium text-green-700">
-//           ${data?.price?.toFixed(2)}
-//         </p>
-//       </div>
-
-//       {/* Edit Button */}
-//       <button
-//         onClick={() => onEdit?.(data)}
-//         className="absolute top-3 right-3 p-2 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-sm"
-//       >
-//         <MdModeEditOutline size={18} />
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default AdminProductCard;
+export default AdminProductCard

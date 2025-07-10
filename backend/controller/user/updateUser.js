@@ -13,16 +13,10 @@ async function updateUser(req, res) {
         }
 
         const user = await userModel.findById(sessionUser)
-        console.log("this is user1" ,user)
-        const user2 = await userModel.findById(userId)
-
-        console.log("this is user2" ,user2)
-        
 
         const updateUser = await userModel.findByIdAndUpdate(userId, payload)
 
-        console.log("this is the payload" ,payload)
-        console.log("this is the req.body" ,req.body)
+        
 
 
         res.json({

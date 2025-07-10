@@ -16,7 +16,7 @@ const UploadProduct = ({ onClose, fetchData }) => {
     productImage: [],
     description: "",
     price: "",
-    selling: "",
+    sellingPrice: "",
   });
 
   const [fullScreenImage, setFullScreenImage] = useState("");
@@ -215,15 +215,15 @@ const UploadProduct = ({ onClose, fetchData }) => {
             required
           />
 
-          <label htmlFor="selling" className="mt-3">
-            Selling Price
+          <label htmlFor="sellingPrice" className="mt-3">
+            selling price
           </label>
           <input
             type="number"
-            id="selling"
+            id="sellingPrice"
             placeholder="enter the selling price"
-            value={data.selling}
-            name="selling"
+            value={data.sellingPrice}
+            name="sellingPrice"
             onChange={handleOnChange}
             className="p-2 bg-slate-100 border rounded"
             required

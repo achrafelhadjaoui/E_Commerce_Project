@@ -16,9 +16,9 @@ const AllUsers = () => {
   });
 
   const fetchAllUsers = async () => {
-    console.log("itt starts here", summaryApi.allUsers.url);
-    const fetchData = await fetch(summaryApi.allUsers.url, {
-      method: summaryApi.allUsers.method,
+    console.log("itt starts here", summaryApi.allUser.url);
+    const fetchData = await fetch(summaryApi.allUser.url, {
+      method: summaryApi.allUser.method,
       credentials: "include",
     });
 

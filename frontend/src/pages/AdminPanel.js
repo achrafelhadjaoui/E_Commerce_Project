@@ -5,7 +5,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import ROLE from "../common/role";
 
 const AdminPanel = () => {
-  const user = useSelector((state) => state?.users?.user);
+  const user = useSelector((state) => state?.user?.user);
   const navigate = useNavigate()
 
   /** you can also check only the existong of the userwithout including the role */
