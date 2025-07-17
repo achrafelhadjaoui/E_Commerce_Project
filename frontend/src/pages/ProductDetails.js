@@ -186,9 +186,9 @@ const ProductDetails = () => {
               </div>
             ) : 
             (
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col gap-1 w-screen overflow-hidden'>
                 <p className='bg-red-200 text-red-600 px-2 rounded-full inline-block w-fit'>{data?.brandName}</p>
-                <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
+                <h2 className='text-2xl lg:text-4xl font-medium text-ellipsis line-clamp-1' >{data?.productName}</h2>
                 <p className='capitalize text-slate-400'>{data?.category}</p>
 
                 <div className='text-red-600 flex items-center gap-1'>

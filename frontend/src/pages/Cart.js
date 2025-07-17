@@ -145,7 +145,7 @@ const Cart = () => {
                                 <div className='w-32 h-32 bg-slate-200'>
                                     <img src={product?.productId?.productImage[0]} className='w-full h-full object-scale-down mix-blend-multiply' />
                                 </div>
-                                <div className='px-4 py-2 relative'>
+                                <div className=' px-4 py-2 relative overflow-hidden'>
                                     {/**delete product */}
                                     <div className='absolute right-0 text-red-600 rounded-full p-2 hover:bg-red-600 hover:text-white cursor-pointer' onClick={()=>deleteCartProduct(product?._id)}>
                                         <MdDelete/>
